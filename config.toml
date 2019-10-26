@@ -1,0 +1,9 @@
+[tasks.common]
+    links = [
+        [".config/nvim"],
+        [".config/alacritty"],
+        [".gitconfig"],
+    ]
+
+[tasks.default]
+    deps = ["common"]

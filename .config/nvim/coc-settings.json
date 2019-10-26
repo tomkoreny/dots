@@ -1,0 +1,31 @@
+{
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.suggestionActions.enabled": true,
+  "typescript.suggest.enabled": true,
+  "typescript.suggest.autoImports": true,
+  "coc.source.around.enable": false,
+  "coc.source.buffer.enable": false,
+  "prettier.singleQuote": true,
+  "prettier.tslintIntegration": true,
+  "languageserver": {
+    "cquery": {
+      "command": "cquery",
+      "args": ["--log-file=/tmp/cq.log"],
+      "revealOutputChannelOn": "never",
+      "filetypes": ["c", "cpp"],
+      "initializationOptions": {
+        "cacheDirectory": "/tmp/cquery"
+      }
+    },
+    "golang": {
+      "command": "bingo",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      }
+    }
+  }
+}
