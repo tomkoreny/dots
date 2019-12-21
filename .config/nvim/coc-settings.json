@@ -6,6 +6,11 @@
   "typescript.suggest.autoImports": true,
   "coc.source.around.enable": false,
   "coc.source.buffer.enable": false,
+  "suggest.noselect": false,
+  "suggest.enablePreview": true,
+  "suggest.echodocSupport": true,
+  "suggest.enablePreselect": true,
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
   "prettier.singleQuote": true,
   "prettier.tslintIntegration": true,
   "languageserver": {
