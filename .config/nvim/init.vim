@@ -28,8 +28,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('arcticicestudio/nord-vim')
   " call dein#add('majutsushi/tagbar')
   " call dein#add('rizzatti/dash.vim')
-   call dein#add('Shougo/neosnippet.vim')
-   call dein#add('Shougo/neosnippet-snippets')
    call dein#add('honza/vim-snippets')
   call dein#end()
   call dein#save_state()
@@ -43,7 +41,7 @@ autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angu
 
 let g:NERDTreeMinimalUI = 1 
 
-let g:coc_global_extensions = ['coc-angular', 'coc-marketplace', 'coc-tsserver', 'coc-tslint', 'coc-stylelint', 'coc-html', 'coc-tag', 'coc-prettier', 'coc-yaml', 'coc-json', 'coc-css', 'coc-sh', 'coc-vimtex', 'coc-go', 'coc-git']
+let g:coc_global_extensions = ['coc-angular', 'coc-snippets', 'coc-marketplace', 'coc-tsserver', 'coc-tslint', 'coc-stylelint', 'coc-html', 'coc-tag', 'coc-prettier', 'coc-yaml', 'coc-json', 'coc-css', 'coc-sh', 'coc-vimtex', 'coc-go', 'coc-git']
 
 let g:NERDSpaceDelims = 1
 
@@ -102,7 +100,7 @@ nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gu :GFiles?<CR>
 
 " QUICK CODE ACTION
-nmap <leader>ca  <Plug>(coc-codeaction)
+nmap <leader>ce  <Plug>(coc-codeaction)
 nmap <leader>cr <Plug>(coc-rename)
 nmap <leader>cf <Plug>(coc-format)
 nmap <silent> gd <Plug>(coc-definition)
@@ -224,3 +222,16 @@ endfunction
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
