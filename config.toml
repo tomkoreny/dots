@@ -2,7 +2,6 @@
     links = [
         [".config/nvim"],
         [".config/alacritty"],
-        [".gitconfig"],
     ]
 
 [tasks.default]

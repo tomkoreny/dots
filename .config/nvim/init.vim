@@ -7,9 +7,9 @@ let mapleader = "\<Space>"
 
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('/Users/tomaskoreny/.cache/dein')
-  call dein#begin('/Users/tomaskoreny/.cache/dein')
-  call dein#add('/Users/tomaskoreny/.cache/dein/repos/github.com/Shougo/dein.vim')
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('sheerun/vim-polyglot')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('scrooloose/nerdtree')
@@ -192,8 +192,8 @@ imap +Z Ž
 " }}}
 
 
-:nnoremap <leader>ev :vsplit /Users/tomaskoreny/.config/nvim/init.vim<CR>
-:nnoremap <leader>sv :wq<CR>:source /Users/tomaskoreny/.config/nvim/init.vim<CR>
+:nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<CR>
+:nnoremap <leader>sv :wq<CR>:source ~/.config/nvim/init.vim<CR>
 :inoremap jk <esc>
 
 "Opn fzf in floating window
