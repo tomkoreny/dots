@@ -1,43 +1,58 @@
 " if &compatible set nocompatible
 " endif
-let g:python_host_prog  = '/usr/bin/python'
-let g:python3_host_prog  = '/usr/local/bin/python3'
+
+"let g:python_host_prog  = '/usr/bin/python2'
+"let g:python3_host_prog  = '/usr/bin/python'
 
 let mapleader = "\<Space>" 
 
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+call plug#begin(stdpath('data') . '/plugged')
+ Plug 'sheerun/vim-polyglot'
+ Plug 'pangloss/vim-javascript'
+ " Plug 'maxmellon/vim-jsx-pretty'
+ Plug 'HerringtonDarkholme/yats.vim'
+ Plug 'scrooloose/nerdcommenter'
+ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+ Plug 'junegunn/fzf.vim'
+ Plug 'tpope/vim-surround'
+ Plug 'bdauria/angular-cli.vim'
+ Plug 'tpope/vim-fugitive'
+ Plug 'jiangmiao/auto-pairs'
+ Plug 'Shougo/neco-vim'
+ Plug 'mhinz/vim-startify'
+ Plug 'vim-airline/vim-airline'
+ Plug 'vim-airline/vim-airline-themes'
+ Plug 'Shougo/denite.nvim'
+ Plug 'neoclide/coc.nvim', {'branch': 'release'}
+ Plug 'dylanaraps/wal.vim'
+ Plug 'arcticicestudio/nord-vim'
+ Plug 'honza/vim-snippets'
+ Plug 'paulkass/jira-vim'
+ Plug 'NLKNguyen/papercolor-theme'
+call plug#end()
 
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('sheerun/vim-polyglot')
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('junegunn/fzf.vim')
-  call dein#add('tpope/vim-surround')
-  call dein#add('bdauria/angular-cli.vim') 
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('jiangmiao/auto-pairs')
-  call dein#add('Shougo/neco-vim')
-  call dein#add('mhinz/vim-startify')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
-  call dein#add('Shougo/denite.nvim')
-  call dein#add('neoclide/coc.nvim', {'build': 'yarn install'})
-  call dein#add('dylanaraps/wal.vim')
-  call dein#add('arcticicestudio/nord-vim')
-  " call dein#add('majutsushi/tagbar')
-  " call dein#add('rizzatti/dash.vim')
-   call dein#add('honza/vim-snippets')
-  call dein#end()
-  call dein#save_state()
+" let g:polyglot_disabled = ['jsx', 'javascript', 'typescript', 'tsx', 'js', 'ts']
+
+if has('nvim')
+  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+  autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 endif
 
-if dein#check_install()
-  call dein#install()
-endif
+set mouse+=a
 
 autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angular_cli#init() | endif
+
+
+let g:jiraVimDomainName = "https://singlecase.atlassian.net"
+let g:jiraVimEmail = "tomas.koreny@snowlycode.com"
+let g:jiraVimToken = "8pEOsS494n3bVJgj7hSo9F90"
+
+augroup jiravim_keybinds
+  autocmd!
+  autocmd FileType jirakanbanboardview nnoremap <buffer> <localleader>si JiraVimSelectIssueSp
+  autocmd FileType jirakanbanboardview, jirasprintview nnoremap <buffer> <localleader>lm JiraVimLoadMore
+augroup END
 
 let g:NERDTreeMinimalUI = 1 
 
@@ -58,7 +73,6 @@ filetype plugin indent on
 syntax on
 
 set hidden
-set rtp+=/usr/local/opt/fzf
 set noshowmode
 set relativenumber
 set number
@@ -71,8 +85,8 @@ set softtabstop =2
 set shiftwidth  =2
 set expandtab 
 
-colorscheme nord
-let g:airline_theme='nord'
+colorscheme PaperColor
+let g:airline_theme='papercolor'
 
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
@@ -88,9 +102,10 @@ nnoremap <leader>w  :write<CR>
 nnoremap <leader>fb  :Buffers<CR>
 nnoremap <leader>fg  :GFiles<CR>
 nnoremap <leader>fo  :Files<CR>
-nnoremap <C-p> :Buffers<CR>
-nnoremap <C-z> :GFiles<CR>
-nnoremap <C-i> :Files<CR>
+nnoremap <leader>ft  :term<CR>
+" nnoremap <C-p> :Buffers<CR>
+" nnoremap <C-z> :GFiles<CR>
+" nnoremap <C-i> :Files<CR>
 
 " QUICK GIT ACTIONS
 nnoremap <leader>g :G<CR>
@@ -190,6 +205,7 @@ imap +Z Ž
 " }}}
 
 
+:nnoremap <leader>vr :vertical resize 100<CR>
 :nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<CR>
 :nnoremap <leader>sv :wq<CR>:source ~/.config/nvim/init.vim<CR>
 :inoremap jk <esc>

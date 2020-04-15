@@ -11,7 +11,6 @@
   "suggest.echodocSupport": true,
   "suggest.enablePreselect": true,
   "codeLens.enable": true, 
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
   "prettier.singleQuote": true,
   "prettier.tslintIntegration": true,
   "languageserver": {
