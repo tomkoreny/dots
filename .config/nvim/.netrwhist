@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/puma/Programming/snowly/singlecase/singlecase-customer-app'
+let g:netrw_dirhist_6='/home/puma/.vnc'
+let g:netrw_dirhist_5='/home/puma'
+let g:netrw_dirhist_4='/home/puma/.vnc'
+let g:netrw_dirhist_3='/home/puma/Programming/snowly/singlecase/singlecase-customer-lib/.git'
+let g:netrw_dirhist_2='/home/puma/Programming/snowly/singlecase/singlecase-customer-lib/encryption/encrypters'
+let g:netrw_dirhist_1='/home/puma/dwm2/dwm'
+let g:netrw_dirhist_0='/home/puma/Programming/snowly/singlecase/singlecase-customer-app'
+let g:netrw_dirhist_9='/home/puma/Programming/snowly/singlecase/singlecase-customer-app/native/Onboarding/Components'
+let g:netrw_dirhist_8='/home/puma/Programming/snowly/singlecase/singlecase-customer-app/native/App/Cases/List'

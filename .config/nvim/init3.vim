@@ -8,33 +8,33 @@ let mapleader = "\<Space>"
 
 call plug#begin(stdpath('data') . '/plugged')
  Plug 'sheerun/vim-polyglot'
- Plug 'pangloss/vim-javascript'
- " Plug 'maxmellon/vim-jsx-pretty'
- Plug 'HerringtonDarkholme/yats.vim'
  Plug 'scrooloose/nerdcommenter'
- " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
- Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
  Plug 'junegunn/fzf.vim'
  Plug 'tpope/vim-surround'
- Plug 'bdauria/angular-cli.vim'
+ Plug 'Shougo/deoplete.nvim'
+ " Plug 'bdauria/angular-cli.vim'
  Plug 'tpope/vim-fugitive'
  Plug 'jiangmiao/auto-pairs'
- Plug 'Shougo/neco-vim'
- Plug 'mhinz/vim-startify'
+ " Plug 'Shougo/neco-vim'
+ " Plug 'mhinz/vim-startify'
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
  Plug 'Shougo/denite.nvim'
- Plug 'neoclide/coc.nvim', {'branch': 'release'}
- Plug 'dylanaraps/wal.vim'
+ " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+ " Plug 'dylanaraps/wal.vim'
  Plug 'arcticicestudio/nord-vim'
- Plug 'honza/vim-snippets'
+ Plug 'neovim/nvim-lsp'
+ Plug 'ervandew/supertab'
+ Plug 'ncm2/float-preview.nvim'
+ " Plug 'honza/vim-snippets'
  " Plug 'paulkass/jira-vim'
- Plug 'NLKNguyen/papercolor-theme'
- Plug 'tpope/vim-repeat'
- Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
-" let g:polyglot_disabled = ['jsx', 'javascript', 'typescript', 'tsx', 'js', 'ts']
+luafile ~/.config/nvim/config.lua
+setlocal omnifunc=v:lua.vim.lsp.omnifunc
+imap <tab> <c-x><c-o>
+let g:float_preview#docked = 0
 
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
@@ -42,14 +42,13 @@ if has('nvim')
 endif
 
 set mouse+=a
-set termguicolors
 
 autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angular_cli#init() | endif
 
 
-" let g:jiraVimDomainName = "https://singlecase.atlassian.net"
-" let g:jiraVimEmail = "tomas.koreny@snowlycode.com"
-" let g:jiraVimToken = "8pEOsS494n3bVJgj7hSo9F90"
+let g:jiraVimDomainName = "https://singlecase.atlassian.net"
+let g:jiraVimEmail = "tomas.koreny@snowlycode.com"
+let g:jiraVimToken = "8pEOsS494n3bVJgj7hSo9F90"
 
 augroup jiravim_keybinds
   autocmd!
@@ -57,13 +56,13 @@ augroup jiravim_keybinds
   autocmd FileType jirakanbanboardview, jirasprintview nnoremap <buffer> <localleader>lm JiraVimLoadMore
 augroup END
 
-" let g:NERDTreeMinimalUI = 1 
+let g:NERDTreeMinimalUI = 1 
 
-let g:coc_global_extensions = ['coc-angular', 'coc-snippets', 'coc-marketplace', 'coc-tsserver', 'coc-tslint', 'coc-stylelint', 'coc-html', 'coc-tag', 'coc-prettier', 'coc-yaml', 'coc-json', 'coc-css', 'coc-sh', 'coc-vimtex', 'coc-go', 'coc-git']
+" let g:coc_global_extensions = ['coc-angular', 'coc-snippets', 'coc-marketplace', 'coc-tsserver', 'coc-tslint', 'coc-stylelint', 'coc-html', 'coc-tag', 'coc-prettier', 'coc-yaml', 'coc-json', 'coc-css', 'coc-sh', 'coc-vimtex', 'coc-go', 'coc-git']
 
-" let g:NERDSpaceDelims = 1
+let g:NERDSpaceDelims = 1
 
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Better netrw settings, we use NERDTree instead, but its still nice
 let g:netrw_banner = 0
@@ -76,6 +75,7 @@ filetype plugin indent on
 syntax on
 
 set hidden
+set rtp+=/usr/local/opt/fzf
 set noshowmode
 set relativenumber
 set number
@@ -88,13 +88,16 @@ set softtabstop =2
 set shiftwidth  =2
 set expandtab 
 
-colorscheme PaperColor
-let g:airline_theme='papercolor'
+colorscheme nord
+let g:airline_theme='nord'
 
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 set colorcolumn=80,120
+" imap <TAB>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
 "
 nnoremap <leader>w  :write<CR>
 
@@ -103,6 +106,9 @@ nnoremap <leader>fb  :Buffers<CR>
 nnoremap <leader>fg  :GFiles<CR>
 nnoremap <leader>fo  :Files<CR>
 nnoremap <leader>ft  :term<CR>
+" nnoremap <C-p> :Buffers<CR>
+" nnoremap <C-z> :GFiles<CR>
+" nnoremap <C-i> :Files<CR>
 
 " QUICK GIT ACTIONS
 nnoremap <leader>g :G<CR>
@@ -112,18 +118,17 @@ nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gu :GFiles?<CR>
 
 " QUICK CODE ACTION
-nmap <leader>ce  <Plug>(coc-codeaction)
-nmap <leader>cr <Plug>(coc-rename)
-nmap <leader>cf <Plug>(coc-format)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" nmap <leader>ce  <Plug>(coc-codeaction)
+" nmap <leader>cr <Plug>(coc-rename)
+" nmap <leader>cf <Plug>(coc-format)
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 nmap <F8> :TagbarToggle<CR>
-"nmap <F7> :NERDTreeToggle<CR>
-nmap <F7> :CocCommand explorer --toggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
 nnoremap <C-n> :EComponent 
 nnoremap <C-m> :ETemplate 
 nnoremap <C-b> :EStyle 
@@ -144,15 +149,15 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-autocmd CursorHoldI,CursorMovedI * silent! call CocActionAsync('showSignatureHelp')
+" autocmd CursorHoldI,CursorMovedI * silent! call CocAction('showSignatureHelp')
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+  " if &filetype == 'vim'
+    " execute 'h '.expand('<cword>')
+  " else
+    " call CocAction('doHover')
+  " endif
+" endfunction
 set cmdheight=2
 
 " WRITE SPECIAL LETTERS {{{
@@ -208,7 +213,7 @@ imap +Z Ž
 :nnoremap <leader>sv :wq<CR>:source ~/.config/nvim/init.vim<CR>
 :inoremap jk <esc>
 
-"Open fzf in floating window
+"Opn fzf in floating window
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
@@ -237,11 +242,11 @@ endfunction
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+      " \ pumvisible() ? coc#_select_confirm() :
+      " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      " \ <SID>check_back_space() ? "\<TAB>" :
+      " \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
