@@ -7,7 +7,8 @@
   "coc.source.around.enable": false,
   "coc.source.buffer.enable": false,
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnTypeFiletypes": ["typescriptreact", "typescript", "json"],
+  "coc.preferences.formatOnTypeFiletypes": [ "typescript", "json"],
+  "coc.preferences.formatOnSaveFiletypes": [ "javascript"],
   "diagnostic.level": "hint",
   "diagnostic.virtualText": true,
   "git.addGBlameToVirtualText": true,
@@ -22,6 +23,7 @@
   "codeLens.enable": true, 
   "prettier.singleQuote": true,
   "prettier.tslintIntegration": true,
+  "prettier.semi": true,
   "languageserver": {
     "cquery": {
       "command": "cquery",
