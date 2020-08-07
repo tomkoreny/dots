@@ -14,7 +14,9 @@ Plug 'haorenW1025/diagnostic-nvim'
 Plug 'haorenW1025/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'junegunn/fzf.vim'
+Plug 'jbgutierrez/vim-better-comments'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -28,6 +30,8 @@ Plug 'SirVer/ultisnips'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
+Plug 'preservim/nerdtree'
+Plug 'StanAngeloff/php.vim', {'for': 'php'}
 call plug#end()
 
 set mouse+=a
@@ -60,7 +64,7 @@ endif
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
   end
 
-  local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver', 'vimls', 'jsonls', 'pyls_ms', 'html', 'cssls'}
+  local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver', 'vimls', 'jsonls', 'pyls_ms', 'html', 'cssls', 'intelephense'}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -183,7 +187,7 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gu :GFiles?<CR>
 
-nnoremap <F7> :Vex<CR>
+nnoremap <F7> :NERDTreeToggle<CR>
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -327,3 +331,7 @@ call sign_define("LspDiagnosticsErrorSign", {"text" : "❌", "texthl" : "LspDiag
 call sign_define("LspDiagnosticsWarningSign", {"text" : "⚠", "texthl" : "LspDiagnosticsWarning"})
 call sign_define("LspDiagnosticInformationSign", {"text" : "ℹ", "texthl" : "LspDiagnosticsInformation"})
 call sign_define("LspDiagnosticHintSign", {"text" : "🤔", "texthl" : "LspDiagnosticsHint"})
+
+autocmd FileType php setlocal sw=4 sts=4 ts=4 et
+autocmd BufNewFile,BufRead *.php syntax enable
+set guifont=JetBrainsMono\ nl:h18
