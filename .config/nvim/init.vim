@@ -31,7 +31,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
-Plug 'StanAngeloff/php.vim', {'for': 'php'}
+Plug 'neomake/neomake'
+"Plug 'StanAngeloff/php.vim', {'for': 'php'}
 call plug#end()
 
 set mouse+=a
@@ -74,21 +75,38 @@ endif
   require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,                    -- false will disable the whole extension
---        disable = { 'c', 'rust' },        -- list of language that will be disabled
     },
-    incremental_selection = {
+    refactor = {
+      highlight_definitions = { enable = true },
+--      highlight_current_scope = { enable = true },
+    },
+    textobjects = {
+      move = {
         enable = true,
- --       disable = { 'cpp', 'lua' },
-        keymaps = {                       -- mappings for incremental selection (visual mappings)
-          init_selection = 'gnn',         -- maps in normal mode to init the node/scope selection
-          node_incremental = "grn",       -- increment to the upper named parent
-          scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
-          scope_decremental = "grm",      -- decrement to the previous scope
-        }
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
     },
     ensure_installed = 'all' -- one of 'all', 'language', or a list of languages
 }
 EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 command! -buffer -nargs=0 LspShowLineDiagnostics lua require'jumpLoc'.openLineDiagnostics()
 nnoremap <buffer><silent> <C-h> <Cmd>LspShowLineDiagnostics<CR>
@@ -335,3 +353,4 @@ call sign_define("LspDiagnosticHintSign", {"text" : "🤔", "texthl" : "LspDiagn
 autocmd FileType php setlocal sw=4 sts=4 ts=4 et
 autocmd BufNewFile,BufRead *.php syntax enable
 set guifont=JetBrainsMono\ nl:h18
+hi Normal guibg=NONE ctermbg=NONE
