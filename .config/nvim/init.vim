@@ -32,6 +32,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 Plug 'neomake/neomake'
+Plug 'editorconfig/editorconfig-vim'
 "Plug 'StanAngeloff/php.vim', {'for': 'php'}
 call plug#end()
 
@@ -65,7 +66,7 @@ endif
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
   end
 
-  local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver', 'vimls', 'jsonls', 'pyls_ms', 'html', 'cssls', 'intelephense'}
+  local servers = {'gopls', 'rust_analyzer', 'sumneko_lua', 'tsserver', 'vimls', 'jsonls', 'pyls_ms', 'html', 'cssls', 'intelephense', 'vuels'}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -351,6 +352,7 @@ call sign_define("LspDiagnosticInformationSign", {"text" : "ℹ", "texthl" : "Ls
 call sign_define("LspDiagnosticHintSign", {"text" : "🤔", "texthl" : "LspDiagnosticsHint"})
 
 autocmd FileType php setlocal sw=4 sts=4 ts=4 et
+autocmd FileType latte setlocal sw=4 sts=4 ts=4 et
 autocmd BufNewFile,BufRead *.php syntax enable
 set guifont=JetBrainsMono\ nl:h18
 hi Normal guibg=NONE ctermbg=NONE
