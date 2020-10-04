@@ -10,11 +10,10 @@ let mapleader = "\<Space>"
 
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'neovim/nvim-lsp'
-Plug 'haorenW1025/diagnostic-nvim'
-Plug 'haorenW1025/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'junegunn/fzf.vim'
 Plug 'jbgutierrez/vim-better-comments'
 Plug 'NLKNguyen/papercolor-theme'
@@ -33,7 +32,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 Plug 'neomake/neomake'
 Plug 'editorconfig/editorconfig-vim'
-"Plug 'StanAngeloff/php.vim', {'for': 'php'}
+Plug 'wakatime/vim-wakatime'
+Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+Plug 'bluz71/vim-nightfly-guicolors'
 call plug#end()
 
 set mouse+=a
@@ -106,7 +107,7 @@ endif
 }
 EOF
 
-set foldmethod=expr
+"set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 command! -buffer -nargs=0 LspShowLineDiagnostics lua require'jumpLoc'.openLineDiagnostics()
@@ -146,7 +147,7 @@ inoremap <silent><expr> <TAB>
 let g:completion_chain_complete_list = {
             \ 'default' : {
             \   'default': [
-            \       {'complete_items': ['lsp', 'snippet']},
+            \       {'complete_items': ['lsp', 'snippet', 'tabnine']},
             \       {'mode': '<c-p>'},
             \       {'mode': '<c-n>'}],
             \   'comment': [],
@@ -164,8 +165,14 @@ nnoremap <leader>fg  :GFiles<CR>
 nnoremap <leader>fo  :Files<CR>
 nnoremap <leader>ft  :term<CR>
 
-colorscheme PaperColor
-let g:airline_theme='papercolor'
+colorscheme nightfly
+let g:airline_theme='nightfly'
+
+let g:nightflyCursorColor = 1
+let g:nightflyUndercurls = 1
+
+"colorscheme PaperColor
+"let g:airline_theme='papercolor'
 
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -192,6 +199,7 @@ set expandtab
 "set colorcolumn=80,120
 "
 nnoremap <leader>w  :write<CR>
+nnoremap <leader>a  :Format<CR>
 
 " QUICKLY JUMP BETWEEN FILES AND BUFFERS
 nnoremap <leader>fb  :Buffers<CR>
