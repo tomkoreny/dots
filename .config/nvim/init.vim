@@ -10,7 +10,6 @@ let mapleader = "\<Space>"
 
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'neovim/nvim-lsp'
-Plug 'nvim-lua/diagnostic-nvim'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -46,12 +45,11 @@ if has('nvim')
 endif
 
 :lua << EOF
-  local nvim_lsp = require('nvim_lsp')
+  local nvim_lsp = require('lspconfig')
 
   local on_attach =
  function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    require'diagnostic'.on_attach()
     require'completion'.on_attach()
 
     -- Mappings.
@@ -363,4 +361,10 @@ autocmd FileType php setlocal sw=4 sts=4 ts=4 et
 autocmd FileType latte setlocal sw=4 sts=4 ts=4 et
 autocmd BufNewFile,BufRead *.php syntax enable
 set guifont=JetBrainsMono\ nl:h18
-hi Normal guibg=NONE ctermbg=NONE
+
+augroup latte_ft
+  au!
+  autocmd BufNewFile,BufRead *.latte  set filetype=html
+augroup END
+
+command SnoofaHeader :r ~/snoofa_header.txt
