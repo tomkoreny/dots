@@ -25,7 +25,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
@@ -208,8 +208,8 @@ nnoremap <leader>ft  :term<CR>
 " QUICK GIT ACTIONS
 nnoremap <leader>g :G<CR>
 nnoremap <leader>gw :Gwrite<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gu :GFiles?<CR>
 
 nnoremap <F7> :NERDTreeToggle<CR>
